@@ -6,6 +6,8 @@ import Title from './components/Title'
 import ScrollDownChevron from './components/ScrollDownChevron'
 
 import './App.css'
+import { tools } from './constants/tools'
+import ToolBox from './components/ToolBox'
 
 function App() {
     return (
@@ -19,7 +21,15 @@ function App() {
                 </div>
             </div>
 
-            <div className='w-screen h-screen background'></div>
+            <div className='w-screen h-screen background'>
+                <div className='grid grid-cols-3'>
+                    {tools.map((tool) => {
+                        return (
+                            <ToolBox tool={tool} />
+                        )
+                    })}
+                </div>
+            </div>
         </>
     )
 }
