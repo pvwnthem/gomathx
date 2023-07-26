@@ -1,0 +1,7 @@
+.go {
+    color: var(--golang-blue);
+}
+
+.go-dark {
+    color: var(--golang-blue-dark);
+}

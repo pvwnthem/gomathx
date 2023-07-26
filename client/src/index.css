@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --golang-blue: #00ADD8;
+  --bg-color: #383838;
+}
