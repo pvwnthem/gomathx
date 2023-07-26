@@ -1,12 +1,14 @@
+/** @format */
+
 .background {
-  background-color: var(--bg-color);
+    background-color: var(--bg-color);
 }
 
 .bottom-container {
-  position: absolute;
-  bottom: 2rem; /* Adjust this value to change the distance from the bottom */
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
+    position: absolute;
+    bottom: 2rem; /* Adjust this value to change the distance from the bottom */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
 }

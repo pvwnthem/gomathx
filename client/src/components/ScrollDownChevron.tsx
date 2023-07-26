@@ -1,15 +1,17 @@
-import React from 'react';
+/** @format */
 
-import { FaChevronCircleDown } from 'react-icons/fa';
+import React from 'react'
+
+import { FaChevronCircleDown } from 'react-icons/fa'
 
 import './styles/ScrollDownChevron.component.css'
 
 function ScrollDownChevron() {
-  return (
-    <>
-        <FaChevronCircleDown className='go mb-16 text-3xl float' />
-    </>
-  );
-};
+    return (
+        <>
+            <FaChevronCircleDown className='go mb-16 text-3xl float' />
+        </>
+    )
+}
 
-export default ScrollDownChevron;
+export default ScrollDownChevron
