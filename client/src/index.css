@@ -6,3 +6,7 @@
   --golang-blue: #00ADD8;
   --bg-color: #383838;
 }
+
+.go {
+  color: var(--golang-blue);
+}

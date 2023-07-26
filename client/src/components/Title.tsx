@@ -1,14 +1,18 @@
 import React from 'react';
 
-import './Title.component.css'
+import '../styles/Title.component.css'
+
+import TitleText from './text/TitleText';
+import DotSeperator from './DotSeperator';
+import Description from './text/Description';
 
 function Title() {
     return (
-        <h1 className='flex'>
-            <span className='go font-semibold text-7xl' >go</span>
-            <span className='text-white font-semibold text-7xl' >math</span>
-            <span className='go font-bold text-7xl'>X</span>
-        </h1>
+        <>
+            <TitleText />
+            <DotSeperator />
+            <Description />
+        </>
     )
 }
 
