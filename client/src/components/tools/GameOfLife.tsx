@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
-const GRID_SIZE = 10;
-const INITIAL_FILLED_CELLS = 20;
+const GRID_SIZE = 40;
+const INITIAL_FILLED_CELLS = 200;
 
 const GameOfLife = () => {
   const [grid, setGrid] = useState<number[][]>([]);
@@ -47,15 +47,16 @@ const GameOfLife = () => {
   };
 
   return (
-    <div className='w-screen h-screen'>
-      <div className='grid grid-cols-10 gap-1' style={{ width: '200px', height: '200px' }}>
+    <div className='w-screen h-screen flex flex-col items-center justify-center'>
+      <div className='grid' style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`, gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)` }}>
         {/* Render the grid */}
         {grid.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className={`w-full h-full border border-gray-300 ${cell === 1 ? 'bg-black' : 'bg-white'}`}
+              className={`w-4 h-4 ${cell === 1 ? 'bg-black' : 'bg-white'}`}
               onClick={() => toggleCell(rowIndex, colIndex)}
+              style={{ border: '1px solid #ccc' }}
             ></div>
           ))
         )}
