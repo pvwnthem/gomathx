@@ -12,3 +12,7 @@
 .go {
     color: var(--golang-blue);
 }
+
+.bg-go {
+    background-color: var(--golang-blue);
+}
