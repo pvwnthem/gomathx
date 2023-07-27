@@ -136,6 +136,8 @@ const Mandelbrot = () => {
 
     // Event listener for mouse wheel zoom
     const handleMouseWheel = (event: any) => {
+      event.preventDefault(); // Prevent default scrolling behavior
+
       const delta = event.deltaY > 0 ? 1 + zoomSpeed : 1 - zoomSpeed;
       const newZoomLevel = zoomLevel * delta;
       // Limit the zoom level to prevent zooming too far in or out

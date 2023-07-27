@@ -46,7 +46,7 @@ const Mandelbrot: React.FC = () => {
       const newZoom = zoom + (event.deltaY > 0 ? 0.05 : -0.05);
       setZoom(newZoom);
     };
-    window.addEventListener('wheel', handleWheel);
+    window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
   }, [zoom]);
 
