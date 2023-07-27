@@ -27,11 +27,11 @@ const Mandelbrot: React.FC = () => {
   }, [zoom, offsetX, offsetY]);
 
   const handleZoomIn = () => {
-    setZoom(zoom * 1.5); // Increase zoom level by 1.5 times
+    setZoom(zoom / 1.5); // Increase zoom level by 1.5 times
   };
 
   const handleZoomOut = () => {
-    setZoom(zoom / 1.5); // Decrease zoom level by 1.5 times
+    setZoom(zoom * 1.5); // Decrease zoom level by 1.5 times
   };
 
   return (
@@ -40,6 +40,10 @@ const Mandelbrot: React.FC = () => {
       <div>
         <button onClick={handleZoomIn}>Zoom In</button>
         <button onClick={handleZoomOut}>Zoom Out</button>
+        <button onClick={() => setOffsetX(offsetX - 0.1)}>Left</button>
+        <button onClick={() => setOffsetX(offsetX + 0.1)}>Right</button>
+        <button onClick={() => setOffsetY(offsetY - 0.1)}>Up</button>
+        <button onClick={() => setOffsetY(offsetY + 0.1)}>Down</button>
       </div>
     </div>
   );

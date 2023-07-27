@@ -4,6 +4,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"runtime"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,16 +30,41 @@ func Mandelbrot(a, b, offsetX, offsetY, zoom float64, maxIterations int) color.C
 	return color.RGBA{brightness, brightness, brightness, 255}
 }
 
-func GetMandelbrotImage(width, height int, offsetX, offsetY, zoom float64, maxIterations int) image.Image {
-	img := image.NewRGBA(image.Rect(0, 0, width, height))
-
-	for x := 0; x < width; x++ {
-		for y := 0; y < height; y++ {
-			a := (float64(x)/float64(width)-0.5)*zoom*4 + offsetX
-			b := (float64(y)/float64(height)-0.5)*zoom*4 + offsetY
+func GetMandelbrotImagePart(img *image.RGBA, yStart, yEnd int, offsetX, offsetY, zoom float64, maxIterations int, done chan struct{}) {
+	for y := yStart; y < yEnd; y++ {
+		for x := 0; x < img.Bounds().Dx(); x++ {
+			a := (float64(x)/float64(img.Rect.Dx())-0.5)*zoom*4 + offsetX
+			b := (float64(y)/float64(img.Rect.Dy())-0.5)*zoom*4 + offsetY
 
 			img.Set(x, y, Mandelbrot(a, b, offsetX, offsetY, zoom, maxIterations))
 		}
+	}
+	done <- struct{}{}
+}
+
+func GetMandelbrotImage(width, height int, offsetX, offsetY, zoom float64, maxIterations int) image.Image {
+	img := image.NewRGBA(image.Rect(0, 0, width, height))
+
+	// Number of goroutines to use based on the number of CPU cores
+	numGoroutines := runtime.NumCPU()
+	done := make(chan struct{}, numGoroutines)
+
+	// Calculate the number of rows each goroutine should process
+	rowsPerGoroutine := height / numGoroutines
+
+	for i := 0; i < numGoroutines; i++ {
+		yStart := i * rowsPerGoroutine
+		yEnd := (i + 1) * rowsPerGoroutine
+		if i == numGoroutines-1 {
+			yEnd = height // The last goroutine should process until the end
+		}
+
+		go GetMandelbrotImagePart(img, yStart, yEnd, offsetX, offsetY, zoom, maxIterations, done)
+	}
+
+	// Wait for all goroutines to finish
+	for i := 0; i < numGoroutines; i++ {
+		<-done
 	}
 
 	return img
