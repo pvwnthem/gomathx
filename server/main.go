@@ -27,6 +27,7 @@ func setupRouter() *gin.Engine {
 	})
 
 	r.POST("/tools/game-of-life/next", tools.GetNextGridGeneration)
+	r.POST("/tools/mandelbrot-set", tools.GetMandelbrot)
 
 	return r
 }
