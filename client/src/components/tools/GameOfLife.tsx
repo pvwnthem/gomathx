@@ -29,18 +29,16 @@ const GameOfLife = () => {
     }
   }, [grid, speed, fillPercentage]);
 
-  const handleRegenerate = useCallback(async () => {
-
-    let initialGrid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(0));
-
-    for (let i = 0; i < ((fillPercentage) / (GRID_SIZE ^ 2)) * 100; i++) {
+  const handleRegenerate = useCallback(() => {
+    const initialGrid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(0));
+    const fillCount = Math.floor((fillPercentage / 100) * (GRID_SIZE * GRID_SIZE));
+    for (let i = 0; i < fillCount; i++) {
       const row = Math.floor(Math.random() * GRID_SIZE);
       const col = Math.floor(Math.random() * GRID_SIZE);
       initialGrid[row][col] = 1;
     }
-
     setGrid(initialGrid);
-  }, [])
+  }, [fillPercentage]);
 
   const toggleCell = useCallback((rowIndex: number, colIndex: number) => {
     const updatedGrid = [...grid];
