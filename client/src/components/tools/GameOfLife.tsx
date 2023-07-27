@@ -12,17 +12,7 @@ const GameOfLife = () => {
   const [fillPercentage, setFillPercentage] = useState(50);
 
   useEffect(() => {
-    // Initialize the grid with the initial state (e.g., all cells are dead).
-    const initialGrid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(0));
-
-    // Randomly fill in some squares on the initial grid.
-    for (let i = 0; i < ((fillPercentage * 1.5) / (GRID_SIZE ^ 2)) * 100; i++) {
-      const row = Math.floor(Math.random() * GRID_SIZE);
-      const col = Math.floor(Math.random() * GRID_SIZE);
-      initialGrid[row][col] = 1;
-    }
-
-    setGrid(initialGrid);
+    handleRegenerate();
   }, [fillPercentage]);
 
   const handleNextGeneration = useCallback(async () => {
@@ -38,6 +28,19 @@ const GameOfLife = () => {
       // setError('An error occurred while fetching the next generation.');
     }
   }, [grid, speed, fillPercentage]);
+
+  const handleRegenerate = useCallback(async () => {
+
+    let initialGrid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(0));
+
+    for (let i = 0; i < ((fillPercentage) / (GRID_SIZE ^ 2)) * 100; i++) {
+      const row = Math.floor(Math.random() * GRID_SIZE);
+      const col = Math.floor(Math.random() * GRID_SIZE);
+      initialGrid[row][col] = 1;
+    }
+
+    setGrid(initialGrid);
+  }, [])
 
   const toggleCell = useCallback((rowIndex: number, colIndex: number) => {
     const updatedGrid = [...grid];
@@ -115,6 +118,9 @@ const GameOfLife = () => {
         </button>
         <button className='mt-2 px-4 py-2 bg-go text-white rounded' onClick={handleReset}>
           Reset
+        </button>
+        <button className='mt-2 px-4 py-2 bg-white go rounded' onClick={handleRegenerate}>
+          Regenerate
         </button>
       </div>
     </div>
