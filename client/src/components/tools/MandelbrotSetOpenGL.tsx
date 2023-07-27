@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import MandelbrotSetDescription from '../text/MandelbrotSetOpenGLDescription';
 
 const Mandelbrot = () => {
   const canvasRef = useRef(null);
@@ -170,7 +171,16 @@ const Mandelbrot = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className='w-full h-full' />;
+  return (
+    <>
+      <div className='w-full h-screen background'>
+       <canvas ref={canvasRef} className='w-full h-full' />
+      </div>
+      <div className='w-full h-screen background py-12'>
+        <MandelbrotSetDescription />
+      </div>
+    </>
+  )
 };
 
 export default Mandelbrot;

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import MandelbrotSetDescription from '../text/MandelbrotSetOpenGLDescription';
+import CodeSnippet from '../code/Snippet';
 
 const Mandelbrot: React.FC = () => {
   const [image, setImage] = useState<string>('');
@@ -80,9 +82,39 @@ const Mandelbrot: React.FC = () => {
   }, [offsetX, offsetY, zoom]);
 
   return (
-    <div>
+    <>
+    <div className='w-full h-screen'>
       <img draggable={false} src={image} alt="Mandelbrot Set" />
     </div>
+    <div className='w-full h-screen background'>
+      <MandelbrotSetDescription />
+      <CodeSnippet>
+        {`
+          func Mandelbrot(a, b, offsetX, offsetY, zoom float64, maxIterations int) color.Color {
+            ca := a
+            cb := b
+          
+            var n int
+            for n = 0; n < maxIterations; n++ {
+              aa := a*a - b*b
+              bb := 2 * a * b
+          
+              a = aa + ca
+              b = bb + cb
+          
+              if a*a+b*b > 4 {
+                break
+              }
+            }
+          
+            brightness := uint8((float64(n) / float64(maxIterations)) * 255)
+            return color.RGBA{brightness, brightness, brightness, 255}
+          }
+        `}
+      </CodeSnippet>
+    </div>
+    </>
+    
   );
 };
 
