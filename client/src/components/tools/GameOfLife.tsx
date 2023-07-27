@@ -21,7 +21,7 @@ const GameOfLife = () => {
   const handleNextGeneration = useCallback(async () => {
     try {
       // Make an API call to get the next generation by passing the current grid and parameters
-      const response = await axios.post('http://localhost:8080/tools/game-of-life/next', {
+      const response = await axios.post(import.meta.env?.VITE_API_URL + '/tools/game-of-life/next', {
         grid,
       });
       setGrid(response.data.grid);
