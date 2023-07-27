@@ -72,7 +72,7 @@ const GameOfLife = () => {
 
   return (
     <div className='background'>
-      <div className='w-screen h-screen flex flex-col items-center justify-center'>
+      <div className='h-screen flex flex-col items-center justify-center'>
         <div className='w-full h-full flex items-center justify-center'>
           <div className='grid background border' style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`, gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)` }}>
             {/* Render the grid */}
