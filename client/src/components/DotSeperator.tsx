@@ -1,6 +1,5 @@
 /** @format */
 
-import React from 'react'
 
 import './styles/DotSeperator.component.css'
 

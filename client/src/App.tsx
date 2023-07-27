@@ -1,6 +1,5 @@
 /** @format */
 
-import React from 'react'
 
 import Title from './components/Title'
 import ScrollDownChevron from './components/ScrollDownChevron'

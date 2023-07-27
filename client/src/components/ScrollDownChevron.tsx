@@ -1,6 +1,5 @@
 /** @format */
 
-import React from 'react'
 
 import { FaChevronCircleDown } from 'react-icons/fa'
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import copy from 'clipboard-copy';
 
 function CodeSnippet ({ children }: any) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tool } from '../types/Tool';
 
 function ToolBox({ tool }: { tool: Tool }) {

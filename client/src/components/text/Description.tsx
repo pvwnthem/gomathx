@@ -1,7 +1,5 @@
 /** @format */
 
-import React from 'react'
-
 import '../styles/Description.component.css'
 
 function Description() {
