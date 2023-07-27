@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
 import '../styles/GameOfLife.tool.component.css';
+import GameOfLifeDescription from '../text/GameOfLifeDescription';
 
 const GRID_SIZE = 40;
 
@@ -68,58 +69,63 @@ const GameOfLife = () => {
   }, [isRunning, handleNextGeneration, speed]);
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center background'>
-      <div className='grid background border' style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`, gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)` }}>
-        {/* Render the grid */}
-        {grid.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              className={`w-4 h-4 border border-gray-500 ${cell === 1 ? 'bg-go' : 'background'}`}
-              onClick={() => toggleCell(rowIndex, colIndex)}
-            ></div>
-          ))
-        )}
+    <div className='background'>
+      <div className='w-screen h-screen flex items-center justify-center'>
+        <div className='grid background border' style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`, gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)` }}>
+          {/* Render the grid */}
+          {grid.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+              <div
+                key={`${rowIndex}-${colIndex}`}
+                className={`w-4 h-4 border border-gray-500 ${cell === 1 ? 'bg-go' : 'background'}`}
+                onClick={() => toggleCell(rowIndex, colIndex)}
+              ></div>
+            ))
+          )}
+        </div>
+
+        {/* Options Box */}
+        <div className='flex flex-col mt-4 ml-6 text-white'>
+          <div className='flex items-center mb-2'>
+            <label className='mr-2'>Animation Time:</label>
+            <input
+              className='w-36 appearance-none bg-white h-1 rounded-lg'
+              min={50}
+              max={500}
+              type="range"
+              value={speed}
+              onChange={(e) => setSpeed(e.target.valueAsNumber)}
+            />
+          </div>
+
+          <div className='flex items-center mb-2'>
+            <label className='mr-2'>Fill Percentage:</label>
+            <input
+              className='w-36 appearance-none bg-white h-1 rounded-lg'
+              min={0}
+              max={100}
+              type="range"
+              value={fillPercentage}
+              onChange={(e) => setFillPercentage(e.target.valueAsNumber)}
+            />
+          </div>
+
+          <button className='px-4 py-2 bg-go text-white rounded' onClick={handleNextGeneration}>
+            Next Generation
+          </button>
+          <button className='mt-2 px-4 py-2 bg-white go rounded' onClick={handleRun}>
+            {isRunning ? 'Stop' : 'Run'}
+          </button>
+          <button className='mt-2 px-4 py-2 bg-go text-white rounded' onClick={handleReset}>
+            Reset
+          </button>
+          <button className='mt-2 px-4 py-2 bg-white go rounded' onClick={handleRegenerate}>
+            Regenerate
+          </button>
+        </div>
       </div>
-
-      {/* Options Box */}
-      <div className='flex flex-col mt-4 ml-6 text-white'>
-        <div className='flex items-center mb-2'>
-          <label className='mr-2'>Animation Time:</label>
-          <input
-            className='w-36 appearance-none bg-white h-1 rounded-lg'
-            min={50}
-            max={500}
-            type="range"
-            value={speed}
-            onChange={(e) => setSpeed(e.target.valueAsNumber)}
-          />
-        </div>
-
-        <div className='flex items-center mb-2'>
-          <label className='mr-2'>Fill Percentage:</label>
-          <input
-            className='w-36 appearance-none bg-white h-1 rounded-lg'
-            min={0}
-            max={100}
-            type="range"
-            value={fillPercentage}
-            onChange={(e) => setFillPercentage(e.target.valueAsNumber)}
-          />
-        </div>
-
-        <button className='px-4 py-2 bg-go text-white rounded' onClick={handleNextGeneration}>
-          Next Generation
-        </button>
-        <button className='mt-2 px-4 py-2 bg-white go rounded' onClick={handleRun}>
-          {isRunning ? 'Stop' : 'Run'}
-        </button>
-        <button className='mt-2 px-4 py-2 bg-go text-white rounded' onClick={handleReset}>
-          Reset
-        </button>
-        <button className='mt-2 px-4 py-2 bg-white go rounded' onClick={handleRegenerate}>
-          Regenerate
-        </button>
+      <div className='w-screen h-screen py-12'>
+        <GameOfLifeDescription />
       </div>
     </div>
   );
