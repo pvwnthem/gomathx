@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
+import '../styles/GameOfLife.tool.component.css';
+
 const GRID_SIZE = 40;
 
 const GameOfLife = () => {
@@ -14,7 +16,7 @@ const GameOfLife = () => {
     const initialGrid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(0));
 
     // Randomly fill in some squares on the initial grid.
-    for (let i = 0; i < ((fillPercentage * 1.5) / (GRID_SIZE^2)) * 100; i++) {
+    for (let i = 0; i < ((fillPercentage * 1.5) / (GRID_SIZE ^ 2)) * 100; i++) {
       const row = Math.floor(Math.random() * GRID_SIZE);
       const col = Math.floor(Math.random() * GRID_SIZE);
       initialGrid[row][col] = 1;
@@ -53,7 +55,7 @@ const GameOfLife = () => {
   };
 
   useEffect(() => {
-    let intervalId: any
+    let intervalId: any;
     if (isRunning) {
       intervalId = setInterval(() => {
         handleNextGeneration();
@@ -65,7 +67,7 @@ const GameOfLife = () => {
   }, [isRunning, handleNextGeneration, speed]);
 
   return (
-    <div className='w-screen h-screen flex flex-col items-center justify-center background '>
+    <div className='w-screen h-screen flex items-center justify-center background'>
       <div className='grid background border' style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`, gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)` }}>
         {/* Render the grid */}
         {grid.map((row, rowIndex) =>
@@ -78,34 +80,42 @@ const GameOfLife = () => {
           ))
         )}
       </div>
-      <button className='mt-4 px-4 py-2 bg-go text-white rounded' onClick={handleNextGeneration}>
-        Next Generation
-      </button>
-      <button className='mt-4 px-4 py-2 bg-white go rounded' onClick={handleRun}>
-        {isRunning ? 'Stop' : 'Run'}
-      </button>
-      <button className='mt-4 px-4 py-2 bg-go text-white rounded' onClick={handleReset}>
-        Reset
-      </button>
-      <div className='mt-4 text-white'>
-        <label>Animation Time:</label>
-        <input
-          min={50}
-          max={500}
-          type="range"
-          value={speed}
-          onChange={(e) => setSpeed(e.target.valueAsNumber)}
-        />
-      </div>
-      <div className='mt-4 go text-white'>
-        <label>Fill Percentage:</label>
-        <input
-          min={0}
-          max={100}
-          type="range"
-          value={fillPercentage}
-          onChange={(e) => setFillPercentage(e.target.valueAsNumber)}
-        />
+
+      {/* Options Box */}
+      <div className='flex flex-col mt-4 ml-6 text-white'>
+        <div className='flex items-center mb-2'>
+          <label className='mr-2'>Animation Time:</label>
+          <input
+            className='w-36 appearance-none bg-white h-1 rounded-lg'
+            min={50}
+            max={500}
+            type="range"
+            value={speed}
+            onChange={(e) => setSpeed(e.target.valueAsNumber)}
+          />
+        </div>
+
+        <div className='flex items-center mb-2'>
+          <label className='mr-2'>Fill Percentage:</label>
+          <input
+            className='w-36 appearance-none bg-white h-1 rounded-lg'
+            min={0}
+            max={100}
+            type="range"
+            value={fillPercentage}
+            onChange={(e) => setFillPercentage(e.target.valueAsNumber)}
+          />
+        </div>
+
+        <button className='px-4 py-2 bg-go text-white rounded' onClick={handleNextGeneration}>
+          Next Generation
+        </button>
+        <button className='mt-2 px-4 py-2 bg-white go rounded' onClick={handleRun}>
+          {isRunning ? 'Stop' : 'Run'}
+        </button>
+        <button className='mt-2 px-4 py-2 bg-go text-white rounded' onClick={handleReset}>
+          Reset
+        </button>
       </div>
     </div>
   );
