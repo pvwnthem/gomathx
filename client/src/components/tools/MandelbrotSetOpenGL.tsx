@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import MandelbrotSetDescription from '../text/MandelbrotSetOpenGLDescription';
 
 const Mandelbrot = () => {
@@ -8,7 +8,6 @@ const Mandelbrot = () => {
   const maxZoom = 4096.0;
   const minZoom = 0.1;
   const zoomSpeed = 0.05;
-  const zoomStep = 0.1;
   let offsetX = 0.0;
   let offsetY = 0.0;
   let targetZoomLevel = zoomLevel;
